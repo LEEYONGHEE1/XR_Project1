@@ -16,6 +16,8 @@ public class ProjectileMove : MonoBehaviour
 
     public PROJECTILETYPE projectileType;
 
+    public FxManager FxManager = FxManager.Instance;
+
     private void FixedUpdate()
     {
         float moveAmount = 10 * Time.fixedDeltaTime;
@@ -48,6 +50,8 @@ public class ProjectileMove : MonoBehaviour
             Temp.GetComponent<HUDTextManager>().UpdateHUDTextSet(
                 "1", other.gameObject, new Vector3(0.0f, 10.0f, 0.0f));
 
+            FxManager.PlayFx(this.gameObject.transform, FxType.hit, Vector3.zero);
+
         }
 
         if (other.CompareTag("Player") && projectileType == PROJECTILETYPE.MONSTER)
@@ -57,6 +61,8 @@ public class ProjectileMove : MonoBehaviour
             GameObject Temp = GameObject.FindGameObjectWithTag("GameManager");
             Temp.GetComponent<HUDTextManager>().UpdateHUDTextSet(
                 "1", other.gameObject, new Vector3(0.0f, 10.0f, 0.0f));
+
+            FxManager.PlayFx(this.gameObject.transform, FxType.hit, Vector3.zero);
         }
 
     }
