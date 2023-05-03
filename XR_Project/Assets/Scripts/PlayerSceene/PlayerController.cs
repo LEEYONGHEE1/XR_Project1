@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;     //ui 이벤트 관리
 
 public class PlayerController : MonoBehaviour
 {
@@ -30,10 +31,15 @@ public class PlayerController : MonoBehaviour
             GetComponent<Rigidbody>().AddForce(Vector3.up * 10.0f, ForceMode.Impulse);
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if(!EventSystem.current.IsPointerOverGameObject())      // ui 와 동시동작을 막기위해서 
         {
-            ProjectileController.FireProjectile();
+            if (Input.GetMouseButtonDown(0))
+            {
+                ProjectileController.FireProjectile();
+            }
         }
+
+        
     }
 
     private void FixedUpdate()

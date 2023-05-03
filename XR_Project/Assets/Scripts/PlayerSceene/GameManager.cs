@@ -12,6 +12,15 @@ public class GameManager : MonoBehaviour
 
     public PlayerHp playerHp;
     public Image playerHpHIImage;
+    public Button BtnSample;
+
+    private void Start()
+    {
+        this.BtnSample.onClick.AddListener(() =>
+        {
+            Debug.Log("Button Click");
+        });
+    }
 
     private void Awake()
     {
