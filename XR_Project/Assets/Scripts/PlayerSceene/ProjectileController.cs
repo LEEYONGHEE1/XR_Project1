@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
+    [SerializeField] protected SoundProfileData soundProfileData;
 
     public Vector3 launchDirection;
-    public GameObject projectile;
+    public GameObject Projectile;
+    protected AudioManager AudioManager => AudioManager.Instance;
 
-
-    // Start is called before the first frame update
     public void FireProjectile()
     {
-        GameObject temp = (GameObject)Instantiate(projectile);
+        AudioManager.PlayOneShot(soundProfileData.GetRandomClip());
+        GameObject temp = (GameObject)Instantiate(Projectile);
 
         temp.transform.position = this.gameObject.transform.position;
         temp.transform.localScale = Vector3.one * 0.3f;
         temp.GetComponent<ProjectileMove>().launchDirection = transform.forward;
         temp.GetComponent<ProjectileMove>().projectileType = ProjectileMove.PROJECTILETYPE.PLAYER;
 
-        Destroy(temp, 10.0f);
+        Destroy(temp, 10.0f);                   //10초후에 생성된 발사채 삭제
+
     }
 }

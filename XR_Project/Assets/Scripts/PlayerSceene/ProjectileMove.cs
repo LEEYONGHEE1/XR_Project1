@@ -1,48 +1,43 @@
+ï»¿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-
 public class ProjectileMove : MonoBehaviour
-
 {
-    // Start is called before the first frame update
-
-    public enum PROJECTILETYPE                  //enum Å¸ÀÔÀ¸·Î ¼±¾ð
+    public enum PROJECTILETYPE                              //enumï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         PLAYER,
         MONSTER
     }
 
-    public Vector3 launchDirection;
+    public Vector3 launchDirection;                         //ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 
     public PROJECTILETYPE projectileType;
 
     protected FxManager FxManager => FxManager.Instance;
+    protected AudioManager AudioManager => AudioManager.Instance;
 
     private void FixedUpdate()
     {
-        float moveAmount = 10 * Time.fixedDeltaTime;
-        transform.Translate(launchDirection * moveAmount);
+        float moveAmount = 10 * Time.fixedDeltaTime;             //ï¿½Ìµï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
+        transform.Translate(launchDirection * moveAmount);      //Translate ï¿½ï¿½ ï¿½Ìµï¿½ 
     }
-
-    //private void OnCollisionEnter(Collision collision)
+    //private void OnCollisionEnter(Collision collision)          //ï¿½æµ¹ï¿½ï¿½ ï¿½Ï¾î³µï¿½ï¿½ ï¿½ï¿½ï¿½
     //{
     //    Debug.Log(collision.gameObject.name);
-
-    //    if (collision.gameObject.tag == "Object")
+    //    if (collision.gameObject.tag == "Object")                //Tag ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ï¿½ 
     //    {
-    //        Destroy(this.gameObject);    
+    //        Destroy(this.gameObject);
     //    }
-
-    //    if (collision.gameObject.tag == "Monster")
+    //    if (collision.gameObject.tag == "Monster")                //Tag ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ï¿½ 
     //    {
     //        Destroy(this.gameObject);
     //        collision.gameObject.GetComponent<Monster>().Damaged(1);
     //    }
     //}
-
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)                         //Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ 
     {
-        if (other.CompareTag("Monster") && projectileType == PROJECTILETYPE.PLAYER)
+        if (other.CompareTag("Monster") && projectileType == PROJECTILETYPE.PLAYER)   //Tag ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ñ´ï¿½.
         {
             Destroy(this.gameObject);
             other.gameObject.GetComponent<Monster>().Damaged(1);
@@ -54,7 +49,7 @@ public class ProjectileMove : MonoBehaviour
 
         }
 
-        if (other.CompareTag("Player") && projectileType == PROJECTILETYPE.MONSTER)
+        if (other.CompareTag("Player") && projectileType == PROJECTILETYPE.MONSTER)   //Tag ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ñ´ï¿½.
         {
             Destroy(this.gameObject);
             other.gameObject.GetComponent<PlayerHp>().Damaged(1);
@@ -64,6 +59,5 @@ public class ProjectileMove : MonoBehaviour
 
             FxManager.PlayFx(this.gameObject.transform, FxType.hit, Vector3.zero);
         }
-
     }
 }
