@@ -10,6 +10,7 @@ TagManager:
   - GameManager
   - FxTemporaire
   - UIHealthBar
+  - NestedScrollManager
   layers:
   - Default
   - TransparentFX
